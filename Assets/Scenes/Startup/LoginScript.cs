@@ -17,7 +17,7 @@ public class LoginScript : MonoBehaviour
         else
         {
             // Already initialized, signal an app activation App Event
-            FB.ActivateApp();
+            //FB.ActivateApp();
         }
     }
 
@@ -27,7 +27,7 @@ public class LoginScript : MonoBehaviour
         {
             print("Init OK");
             // Signal an app activation App Event
-            FB.ActivateApp();
+            //FB.ActivateApp();
             // Continue with Facebook SDK
             // ...
         }
