@@ -124,7 +124,6 @@ GameObject:
   - component: {fileID: 106590833}
   - component: {fileID: 106590832}
   - component: {fileID: 106590831}
-  - component: {fileID: 106590834}
   m_Layer: 5
   m_Name: BtnPlay
   m_TagString: Untagged
@@ -190,18 +189,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 106590832}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 106590834}
-        m_MethodName: OnClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &106590832
@@ -241,18 +229,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106590829}
   m_CullTransparentMesh: 0
---- !u!114 &106590834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106590829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98617e8c1b2f4498fa6ed36a115ae9e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &301670594
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,6 +442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c2aa7f0660e48d19d02ff98919de5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayButton: {fileID: 106590831}
 --- !u!1 &1361250766
 GameObject:
   m_ObjectHideFlags: 0

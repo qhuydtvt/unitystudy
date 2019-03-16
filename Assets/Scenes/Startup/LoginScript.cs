@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Facebook.Unity;
 
 public class LoginScript : MonoBehaviour
 {
+    public Button PlayButton;
     // Start is called before the first frame update
     void Awake()
     {
+        PlayButton.gameObject.SetActive(false);
+        PlayButton.onClick.AddListener(() => SceneManager.LoadScene("PlayScene", LoadSceneMode.Single));
         if (!FB.IsInitialized)
         {
             // Initialize the Facebook SDK
@@ -17,7 +22,7 @@ public class LoginScript : MonoBehaviour
         else
         {
             // Already initialized, signal an app activation App Event
-            //FB.ActivateApp();
+            FB.ActivateApp();
         }
     }
 
@@ -76,6 +81,8 @@ public class LoginScript : MonoBehaviour
             {
                 Debug.Log(perm);
             }
+
+            PlayButton.gameObject.SetActive(true);
         }
         else
         {
