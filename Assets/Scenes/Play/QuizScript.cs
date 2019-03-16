@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
+using Facebook.Unity;
+
 
 public class QuizScript : MonoBehaviour
 {
@@ -42,6 +44,15 @@ public class QuizScript : MonoBehaviour
         {
             textLoading.enabled = false;
         }
+    }
+
+    public void Share()
+    {
+        FB.ShareLink(
+            new System.Uri("https://techkids.vn"),
+            "Check it out", "This one is good",
+            new System.Uri("https://via.placeholder.com/300x300")
+        );
     }
 
     IEnumerator GetTest()
