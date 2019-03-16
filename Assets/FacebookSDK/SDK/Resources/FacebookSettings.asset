@@ -16,7 +16,7 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - '1465771843559561 '
+  - 1465771843559561
   appLabels:
   - UnityStudy
   cookie: 1
