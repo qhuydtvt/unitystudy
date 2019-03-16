@@ -7,27 +7,52 @@ using Facebook.Unity;
 public class LoginScript : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (!FB.IsInitialized)
         {
-            FB.Init(() => {
-                if (FB.IsInitialized)
-                {
-                    print("Initialized");
-                    FB.ActivateApp();
-                    print("Activated");
-                }
-                else
-                {
-                    print("Init failed");
-                }
-            });
+            // Initialize the Facebook SDK
+            FB.Init(InitCallback, OnHideUnity);
         }
         else
         {
-            print("Initialized");
+            // Already initialized, signal an app activation App Event
+            FB.ActivateApp();
         }
+    }
+
+    private void InitCallback()
+    {
+        if (FB.IsInitialized)
+        {
+            print("Init OK");
+            // Signal an app activation App Event
+            FB.ActivateApp();
+            // Continue with Facebook SDK
+            // ...
+        }
+        else
+        {
+            Debug.Log("Failed to Initialize the Facebook SDK");
+        }
+    }
+
+    private void OnHideUnity(bool isGameShown)
+    {
+        if (!isGameShown)
+        {
+            // Pause the game - we will need to hide
+            Time.timeScale = 0;
+        }
+        else
+        {
+            // Resume the game - we're getting focus again
+            Time.timeScale = 1;
+        }
+    }
+
+    void Start()
+    {
     }
 
     public void Login()
