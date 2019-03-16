@@ -12,14 +12,17 @@ public class LoginScript : MonoBehaviour
         if (!FB.IsInitialized)
         {
             FB.Init(() => {
-                print("Initialized");
                 if (FB.IsInitialized)
                 {
+                    print("Initialized");
                     FB.ActivateApp();
-                    login();
+                    print("Activated");
                 }
-            }
-            );
+                else
+                {
+                    print("Init failed");
+                }
+            });
         }
         else
         {
@@ -27,7 +30,7 @@ public class LoginScript : MonoBehaviour
         }
     }
 
-    private void login()
+    public void Login()
     {
         var permissions = new List<string>() { "public_profile", "email" };
         FB.LogInWithReadPermissions(permissions);
