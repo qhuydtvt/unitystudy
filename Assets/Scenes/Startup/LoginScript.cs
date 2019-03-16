@@ -69,7 +69,7 @@ public class LoginScript : MonoBehaviour
 
             Debug.Log("Logged in OK");
 
-            Debug.Log(aToken.UserId);
+            Debug.Log(aToken);
             // Print current access token's granted permissions
             foreach (string perm in aToken.Permissions)
             {
