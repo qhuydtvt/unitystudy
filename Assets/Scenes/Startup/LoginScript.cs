@@ -27,9 +27,7 @@ public class LoginScript : MonoBehaviour
         {
             print("Init OK");
             // Signal an app activation App Event
-            //FB.ActivateApp();
-            // Continue with Facebook SDK
-            // ...
+            FB.ActivateApp();
         }
         else
         {
@@ -58,7 +56,30 @@ public class LoginScript : MonoBehaviour
     public void Login()
     {
         var permissions = new List<string>() { "public_profile", "email" };
-        FB.LogInWithReadPermissions(permissions);
+        FB.LogInWithReadPermissions(permissions, AuthCallback);
+    }
+
+    private void AuthCallback(ILoginResult result)
+    {
+        if (FB.IsLoggedIn)
+        {
+            // AccessToken class will have session details
+            var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
+            // Print current access token's User ID
+
+            Debug.Log("Logged in OK");
+
+            Debug.Log(aToken.UserId);
+            // Print current access token's granted permissions
+            foreach (string perm in aToken.Permissions)
+            {
+                Debug.Log(perm);
+            }
+        }
+        else
+        {
+            Debug.Log("User cancelled login");
+        }
     }
 
     // Update is called once per frame
