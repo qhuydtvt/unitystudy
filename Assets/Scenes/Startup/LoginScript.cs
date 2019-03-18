@@ -7,15 +7,6 @@ using UnityEngine.SceneManagement;
 using Facebook.Unity;
 using Newtonsoft.Json;
 
-public class LoginBody
-{
-    public string accessToken;
-    public LoginBody(string at)
-    {
-        this.accessToken = at;
-    }
-}
-
 public class LoginScript : MonoBehaviour
 {
     public Button PlayButton;
@@ -106,7 +97,6 @@ public class LoginScript : MonoBehaviour
     IEnumerator Login(string url, object data)
     {
         var bodyJsonString = JsonConvert.SerializeObject(data);
-        print(bodyJsonString);
         var request = new UnityWebRequest(url, "POST");
         byte[] bodyRaw = new System.Text.UTF8Encoding().GetBytes(bodyJsonString);
         request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
@@ -116,5 +106,11 @@ public class LoginScript : MonoBehaviour
         yield return request.Send();
 
         Debug.Log("Response: " + request.downloadHandler.text);
+        LoginResponse loginResponse = JsonConvert.DeserializeObject<LoginResponse>(request.downloadHandler.text);
+        if (loginResponse.success == 1)
+        {
+            Credentials.accessToken = loginResponse.accessToken;
+            SceneManager.LoadScene("PlayScene", LoadSceneMode.Single);
+        }
     }
 }

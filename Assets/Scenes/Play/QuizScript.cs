@@ -43,6 +43,7 @@ public class QuizScript : MonoBehaviour
         request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
 
+
         yield return request.Send();
 
         Debug.Log("Response: " + request.downloadHandler.text);
@@ -75,6 +76,8 @@ public class QuizScript : MonoBehaviour
     {
         this.textLoading.enabled = true;
         UnityWebRequest www = UnityWebRequest.Get(URL.API + "/quiz");
+        www.SetRequestHeader("x-auth-token", Credentials.accessToken);
+
         yield return www.SendWebRequest();
         this.textLoading.enabled = false;
         if (www.isNetworkError || www.isHttpError)
