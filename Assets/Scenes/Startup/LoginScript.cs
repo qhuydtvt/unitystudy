@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 public class LoginBody
 {
-    string accessToken;
+    public string accessToken;
     public LoginBody(string at)
     {
         this.accessToken = at;
@@ -84,8 +84,8 @@ public class LoginScript : MonoBehaviour
 
             Debug.Log("Logged in OK");
 
-            Debug.Log(aToken);
-            Debug.Log(aToken.TokenString);
+            //Debug.Log(aToken);
+            //Debug.Log(aToken.TokenString);
 
             StartCoroutine(Login("https://game-serivce.herokuapp.com/api/v1/auth", new LoginBody(aToken.TokenString)));
 
@@ -106,6 +106,7 @@ public class LoginScript : MonoBehaviour
     IEnumerator Login(string url, object data)
     {
         var bodyJsonString = JsonConvert.SerializeObject(data);
+        print(bodyJsonString);
         var request = new UnityWebRequest(url, "POST");
         byte[] bodyRaw = new System.Text.UTF8Encoding().GetBytes(bodyJsonString);
         request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
