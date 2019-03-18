@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 
 using Facebook.Unity;
-
+using Utils;
 
 public class QuizScript : MonoBehaviour
 {
@@ -36,6 +36,10 @@ public class QuizScript : MonoBehaviour
 
     IEnumerator PostRequest(string url, object data)
     {
+        string inviteCode;
+        URLParameters.GetSearchParameters().TryGetValue("inviteCode", out inviteCode);
+        print("Invitecode: " + inviteCode);
+
         var bodyJsonString = JsonConvert.SerializeObject(data);
         var request = new UnityWebRequest(url, "POST");
         byte[] bodyRaw = new System.Text.UTF8Encoding().GetBytes(bodyJsonString);
