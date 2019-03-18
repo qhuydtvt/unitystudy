@@ -23,26 +23,42 @@ public class QuizScript : MonoBehaviour
             choiceButton.onClick.AddListener(() => {
                 print(choiceButton.name);
                 int choiceNo = int.Parse(choiceButton.name.Replace("BtnChoice", ""));
-                StartCoroutine(SubmitAnswer(choiceNo));
+                SubmitAnswer(choiceNo);
             });
         }
     }
 
-    IEnumerator SubmitAnswer(int choiceNo)
+    void SubmitAnswer(int choiceNo)
     {
-        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
-        formData.Add(new MultipartFormDataSection("question", "We are young, right?"));
-        UnityWebRequest www = UnityWebRequest.Post(URL.API + "/quiz", formData);
-        textLoading.enabled = true;
-        yield return www.SendWebRequest();
+        string URL = "https://reqres.in/api/users";
+        StartCoroutine(PostRequest(URL, new User()));
+    }
 
-        if (www.isNetworkError || www.isHttpError)
+    IEnumerator PostRequest(string url, object data)
+    {
+        var bodyJsonString = JsonConvert.SerializeObject(data);
+        var request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = new System.Text.UTF8Encoding().GetBytes(bodyJsonString);
+        request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.Send();
+
+        Debug.Log("Response: " + request.downloadHandler.text);
+    }
+
+    //Wait for the www Request
+    IEnumerator WaitForRequest(WWW www)
+    {
+        yield return www;
+        if (www.error == null)
         {
-            Debug.Log(www.error);
+            Debug.Log(www.text);
         }
         else
         {
-            textLoading.enabled = false;
+            Debug.Log(www.error);
         }
     }
 
