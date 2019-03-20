@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 using Facebook.Unity;
 using Utils;
 
@@ -51,6 +51,8 @@ public class QuizScript : MonoBehaviour
         yield return request.Send();
 
         Debug.Log("Response: " + request.downloadHandler.text);
+
+        SceneManager.LoadScene("ResultScene");
     }
 
     //Wait for the www Request
